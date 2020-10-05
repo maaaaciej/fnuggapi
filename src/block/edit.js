@@ -1,14 +1,14 @@
-const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+import { TextControl, CheckboxControl } from "@wordpress/components";
 
-import { TextControl } from "@wordpress/components";
 import Save from "./save";
-import "./block";
+
 import "./editor.scss";
 
 const Edit = ({ attributes, setAttributes, className }) => {
 	const { useEffect, useState } = wp.element;
-	//const { resortName, testProp } = attributes;
+	/* const { resortName } = attributes; */
+
+	//local state for the autocomplete results from the api
 	const [resorts, setResorts] = useState([]);
 
 	//locally storing the attributes while i figure out why the function doesn't receive the attributes object
@@ -40,6 +40,7 @@ const Edit = ({ attributes, setAttributes, className }) => {
 
 	return (
 		<div className={className}>
+			{/* TODO: Put the textcontrol into the sidebar */}
 			<TextControl
 				label="Search Resorts"
 				value={resortName}
@@ -53,6 +54,18 @@ const Edit = ({ attributes, setAttributes, className }) => {
 					</li>
 				))}
 			</ul>
+
+			{/* TODO: Put controls in the sidebar, refactor more DRY */}
+			<div>
+				<h3>Show</h3>
+				<CheckboxControl label="Picture" />
+				<CheckboxControl label="Weather Conditions" />
+				<CheckboxControl label="Temperature" />
+				<CheckboxControl label="Wind" />
+				<CheckboxControl label="Snow Condition" />
+				<CheckboxControl label="Opening Hours Today" />
+			</div>
+
 			<Save resortName={resortName} />
 		</div>
 	);
