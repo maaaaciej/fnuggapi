@@ -7,7 +7,7 @@ import "./editor.scss";
 import "./style.scss";
 
 registerBlockType("cgb/block-fnuggapi", {
-	title: __("fnuggapi - CGB Block"),
+	title: __("Hva med nå? Fnugg"),
 	icon: "smiley",
 	category: "common",
 	keywords: [
@@ -16,7 +16,7 @@ registerBlockType("cgb/block-fnuggapi", {
 		__("create-guten-block"),
 	],
 	attributes: {
-		content: { type: "string" },
+		resortName: { type: "string" },
 	},
 
 	edit: Edit,

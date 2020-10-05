@@ -1,18 +1,23 @@
 const { __ } = wp.i18n;
-import { TextControl, Autocomplete } from "@wordpress/components";
+const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+
+import { TextControl } from "@wordpress/components";
+import Save from "./save";
+import "./block";
 import "./editor.scss";
 
 const Edit = ({ attributes, setAttributes, className }) => {
 	const { useEffect, useState } = wp.element;
-	const { content } = attributes;
+	//const { resortName, testProp } = attributes;
 	const [resorts, setResorts] = useState([]);
 
+	//locally storing the attributes while i figure out why the function doesn't receive the attributes object
+	const [resortName, setResortName] = useState("");
+
+	//fetching the different resorts with autocomplete
 	useEffect(() => {
-		console.log(content, content.length);
-		console.log(`https://api.fnugg.no/search?q=${content}`);
-		console.log("resort", resorts);
-		content.length !== 0
-			? fetch(`https://api.fnugg.no/suggest/autocomplete?q=${content}`)
+		resortName.length !== 0
+			? fetch(`https://api.fnugg.no/suggest/autocomplete?q=${resortName}`)
 					.then((response) => response.json())
 					.then((data) => setResorts([...data.result]))
 					.catch((error) => console.log(error))
@@ -21,16 +26,34 @@ const Edit = ({ attributes, setAttributes, className }) => {
 		return () => {
 			return;
 		};
-	}, [content]);
+	}, [resortName]);
+
+	//Storing the selected resort in the attributes object, based on the values checked off by the user
+	const fetchResort = async (resortName) => {
+		const encodedResortName = encodeURI(resortName);
+		const response = await fetch(
+			`https://api.fnugg.no/search?q=${encodedResortName}`
+		);
+		const data = await response.json();
+		console.log(data);
+	};
+
 	return (
 		<div className={className}>
 			<TextControl
 				label="Search Resorts"
-				value={content}
+				value={resortName}
 				type="text"
-				onChange={(value) => setAttributes({ content: value })}
+				onChange={(value) => setResortName(value)}
 			/>
-			<p></p>
+			<ul>
+				{resorts.map((resort) => (
+					<li>
+						<a>{resort.name}</a>
+					</li>
+				))}
+			</ul>
+			<Save resortName={resortName} />
 		</div>
 	);
 };
