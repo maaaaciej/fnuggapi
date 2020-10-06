@@ -8,6 +8,7 @@ import {
 
 const BlockControls = ({
 	resortQuery,
+	createResortWidget,
 	resortOptions,
 	setAttributes,
 	resortName,
@@ -32,9 +33,10 @@ const BlockControls = ({
 			<RadioControl
 				selected={resortName}
 				options={createOptionsArray(resorts)}
-				onChange={(selectedOption) =>
-					setAttributes({ resortName: selectedOption })
-				}
+				onChange={(selectedOption) => {
+					createResortWidget(selectedOption);
+					setAttributes({ resortName: selectedOption });
+				}}
 			/>
 
 			<PanelBody title="Widget Options" initialOpen={true}>

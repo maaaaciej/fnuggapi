@@ -22,9 +22,9 @@ registerBlockType("cgb/block-fnuggapi", {
 				Picture: false,
 				"Weather Conditions": false,
 				Temperature: false,
+				"Last Updated": false,
 				Wind: false,
 				Snow: false,
-				"Opening Hours": false,
 			},
 		},
 
