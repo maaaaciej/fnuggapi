@@ -7,9 +7,16 @@ import "./editor.scss";
 const Edit = ({ attributes, setAttributes, className }) => {
 	const { useEffect, useState } = wp.element;
 	/* const { resortName } = attributes; */
-
+	console.log(attributes);
 	//local state for the autocomplete results from the api
 	const [resorts, setResorts] = useState([]);
+
+	const [picture, setPicture] = useState(false);
+	const [weather, setWeather] = useState(false);
+	const [temperature, setTemperature] = useState(false);
+	const [wind, setWind] = useState(false);
+	const [snow, setSnow] = useState(false);
+	const [openingHours, setOpeningHours] = useState(false);
 
 	//locally storing the attributes while i figure out why the function doesn't receive the attributes object
 	const [resortName, setResortName] = useState("");
@@ -29,7 +36,7 @@ const Edit = ({ attributes, setAttributes, className }) => {
 	}, [resortName]);
 
 	//Storing the selected resort in the attributes object, based on the values checked off by the user
-	const fetchResort = async (resortName) => {
+	const createResortWidget = async (resortName) => {
 		const encodedResortName = encodeURI(resortName);
 		const response = await fetch(
 			`https://api.fnugg.no/search?q=${encodedResortName}`
@@ -58,7 +65,10 @@ const Edit = ({ attributes, setAttributes, className }) => {
 			{/* TODO: Put controls in the sidebar, refactor more DRY */}
 			<div>
 				<h3>Show</h3>
-				<CheckboxControl label="Picture" />
+				<CheckboxControl
+					onChange={() => setPicture(!picture)}
+					label="Picture"
+				/>
 				<CheckboxControl label="Weather Conditions" />
 				<CheckboxControl label="Temperature" />
 				<CheckboxControl label="Wind" />
