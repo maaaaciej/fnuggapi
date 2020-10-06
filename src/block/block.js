@@ -16,9 +16,22 @@ registerBlockType("cgb/block-fnuggapi", {
 		__("create-guten-block"),
 	],
 	attributes: {
-		resortName: { type: "string", default: "" },
-		content: { type: "object", default: { picture: false, weather: false } },
-		testProp: { type: "string", default: "" },
+		resortOptions: {
+			type: "object",
+			default: {
+				picture: false,
+				weather: false,
+				temperature: false,
+				wind: false,
+				snow: false,
+				openingHours: false,
+			},
+		},
+
+		resortName: {
+			type: "string",
+			default: "",
+		},
 	},
 
 	edit: Edit,
