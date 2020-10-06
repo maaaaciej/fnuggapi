@@ -19,18 +19,18 @@ registerBlockType("cgb/block-fnuggapi", {
 		resortOptions: {
 			type: "object",
 			default: {
-				picture: false,
-				weather: false,
-				temperature: false,
-				wind: false,
-				snow: false,
-				openingHours: false,
+				Picture: false,
+				"Weather Conditions": false,
+				Temperature: false,
+				Wind: false,
+				Snow: false,
+				"Opening Hours": false,
 			},
 		},
 
 		resortName: {
 			type: "string",
-			default: "",
+			default: "Resort",
 		},
 	},
 
