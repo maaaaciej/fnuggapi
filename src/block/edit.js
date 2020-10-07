@@ -47,15 +47,16 @@ const Edit = ({
 		);
 		const data = await response.json();
 		const result = data.hits.hits[0]._source;
+		const conditions = result.conditions.combined.top;
 		console.log(result);
 		setPreviewData({
 			...previewData,
 			picture: result.images.image_16_9_s,
 			weather: null,
 			lastUpdated: result.last_updated,
-			temperature: result.conditions.combined.top.temperature.value,
-			wind: result.conditions.combined.top.wind.speed,
-			snow: result.conditions.combined.top.condition_description,
+			temperature: conditions.temperature.value,
+			wind: conditions.wind.speed,
+			snow: conditions.condition_description,
 		});
 	};
 	console.log(previewData);
